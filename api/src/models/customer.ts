@@ -1,28 +1,5 @@
-/**
- * @openapi
- * components:
- *   schema:
- *     Product:
- *       type: object
- *       required:
- *        - title
- *        - description
- *        - price
- *        - image
- *       properties:
- *         title:
- *           type: string
- *         description:
- *           type: string
- *         price:
- *           type: number
- *         image:
- *           type: string
- */
 import { Model, Sequelize, DataTypes, InferAttributes, InferCreationAttributes } from 'sequelize';
 import database from "../config/connection";
-import Product, { ProductModel } from './product';
-import CustomersProducts from './customers_product';
 export default class Customer extends Model<InferAttributes<Customer>, InferCreationAttributes<Customer>> {
   public id?: number;
   public name!: string;

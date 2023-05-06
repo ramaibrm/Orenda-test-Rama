@@ -2,7 +2,6 @@
 import Product, { ProductModel } from "../models/product";
 import * as Joi from "joi";
 import { Request, Response, NextFunction } from "express";
-import CustomersProducts from "../models/customers_product";
 
 export default class ProductController {
   static async FindAll(req: Request, res: Response, next: NextFunction) {
@@ -83,12 +82,6 @@ export default class ProductController {
       const foundProduct = await Product.findOne({ where: { id } });
       if (!foundProduct)
         throw { status: 404, message: "Product data not found." };
-      // const foundCustomerProducts = await CustomersProducts.findAll();
-      // for (const cp of foundCustomerProducts) {
-      //   if (cp.ProductId && cp.ProductId === id) {
-      //     cp.destroy();
-      //   }
-      // }
       foundProduct.update({ deletedAt: new Date() });
       res.status(200).json({ message: "Product successfully deleted" });
     } catch (err) {

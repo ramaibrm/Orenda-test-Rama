@@ -12,8 +12,20 @@ dotenv.config();
 export default class OrderController {
   static async FindAll(req: Request, res: Response, next: NextFunction) {
     try {
-      const result = await Product.findAll();
-      res.status(200).json(result);
+      console.log("B")
+      const result = await CustomersProducts.findAll();
+      const pageSchema = Joi.number();
+      const pageValidation = pageSchema.validate(req.query.page);
+      if (pageValidation.error) {
+        throw { status: 400, message: pageValidation.error.message };
+      }
+      const page = Number(req.query.page)
+      console.log("A")
+      if (page) {
+        res.status(200).json({ result: result.slice(0, page * 5), len: result.length });
+      } else {
+        res.status(200).json({ result, len: result.length });
+      }
     } catch (err) {
       next(err);
     }
@@ -107,7 +119,6 @@ export default class OrderController {
       }
       const orders : IOrder = req.body;
       const allOrders = []
-      // const secret_jwt = process.env.JWT_SECRET || "xae1a12"
       const orderId = uniqid()
       for (const product of orders.products) {
         const newOrder = {
@@ -119,7 +130,6 @@ export default class OrderController {
         const result = await CustomersProducts.create(newOrder)
         allOrders.push(result)
       }
-      // const result = await Product.create(newOrder);
       res.status(200).json({message: "Order successfully created", orderId});
     } catch (err) {
       next(err);
