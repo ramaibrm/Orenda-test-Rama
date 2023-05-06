@@ -6,6 +6,7 @@ import swaggerDocument from "./swagger_output.json";
 import sequelizeConnection from "./config/connection";
 import errorMiddleware from './middleware/error.middleware';
 import cors from "cors"
+import swaggerJSDoc from "swagger-jsdoc";
 
 dotenv.config();
 
@@ -34,5 +35,6 @@ sequelizeConnection
 
 
 app.listen(port, () => {
-  console.log(`⚡️[server]: Server is running at http://localhost:${port}`);
+  console.log(`⚡️ [server]: Server is running at http://localhost:${port}`);
+  console.log(`    [server]: Read docs at http://localhost:${port}/docs`);
 });

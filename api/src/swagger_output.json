@@ -7,22 +7,60 @@
   },
   "host": "localhost:3000",
   "basePath": "/",
-  "schemes": [
-    "http"
-  ],
+  "schemes": ["http"],
   "paths": {
-    "/customers": {
+    "/api/customers": {
       "get": {
         "description": "Fetch all customers data",
-        "parameters": [],
+        "parameters": [
+          {  
+						"in":"body",
+						"name":"queries",
+						"description":"planItemExecuteRequest",
+						"required":true,
+						"schema":{  
+							"$ref":"#/definitions/CustomerQuery"
+						}
+					}
+        ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Successfully fetched all posts from JSONPlaceholder",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "userId": {
+                        "type": "number"
+                      },
+                      "id": {
+                        "type": "number"
+                      },
+                      "title": {
+                        "type": "string"
+                      },
+                      "body": {
+                        "type": "string"
+                      }
+                    },
+                    "example": {
+                      "userId": 1,
+                      "id": 1,
+                      "title": "sunt aut facere repellat provident occaecati excepturi optio reprehenderit",
+                      "body": "quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto"
+                    }
+                  }
+                }
+              }
+            }
           }
         }
       }
     },
-    "/customer/{id}": {
+    "/api/customer/{id}": {
       "get": {
         "description": "",
         "parameters": [],
@@ -30,7 +68,17 @@
       },
       "put": {
         "description": "",
-        "parameters": [],
+        "parameters": [
+          {  
+						"in":"body",
+						"name":"Body",
+						"description":"planItemExecuteRequest",
+						"required":true,
+						"schema":{  
+							"$ref":"#/definitions/Customer"
+						}
+					}
+        ],
         "responses": {}
       },
       "delete": {
@@ -39,26 +87,95 @@
         "responses": {}
       }
     },
-    "/customer": {
+    "/api/customer": {
       "post": {
         "description": "",
-        "parameters": [],
+        "parameters": [
+          {  
+						"in":"body",
+						"name":"Body",
+						"description":"planItemExecuteRequest",
+						"required":true,
+						"schema":{  
+							"$ref":"#/definitions/Customer"
+						}
+					}
+        ],
         "responses": {}
       }
     },
-    "/products": {
+    "/api/products": {
       "get": {
         "description": "",
         "parameters": [],
         "responses": {}
       }
     },
-    "/product": {
+    "/api/product": {
       "post": {
         "description": "",
         "parameters": [],
         "responses": {}
       }
+    }
+  },
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$ref": "#/definitions/Customer",
+  "definitions": {
+    "CustomerQuery": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "phone": {
+          "type": "string"
+        },
+        "page": {
+          "type": "string"
+        }
+      },
+      "required": ["name", "phone", "email", "address"],
+      "additionalProperties": false
+    },
+    "Customer": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "phone": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "address": {
+          "type": "string"
+        }
+      },
+      "required": ["name", "phone", "email", "address"],
+      "additionalProperties": false
+    },
+    "Product": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "unit": {
+          "type": "number"
+        },
+        "price": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "name",
+        "unit",
+        "price"
+      ],
+      "additionalProperties": false
     }
   }
 }
