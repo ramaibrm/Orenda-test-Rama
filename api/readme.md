@@ -34,31 +34,31 @@ npm run dev
 ## `Customer`
 Fetch all data with the required queries below
 
-```rest
+```bash
 GET /api/customers?page=${enter_page}
 ```
 Search data
-```rest
+```bash
 GET /api/customers?name=${enter_name}
 GET /api/customers?phone=${enter_phone}
 ```
 Create data
-```rest
+```bash
 POST /api/customer
 Check request body in swagger docs at the bottom of this documentation
 ```
 And more in swagger docs.
 
 ## `Product`
-```rest
+```bash
 GET /api/Products
 ```
-```rest
+```bash
 POST /api/product
 ```
 
 ## `Creating Order & Fetching Order Products`
-```rest
+```javascript
 POST /api/create-order
 
 Request Body:
@@ -89,7 +89,7 @@ Response:
 
 ### To fetch all the products of each order, `COPY` the previous generated `orderId` into the endpoint below
 
-```rest
+```javascript
 GET /api/order/${insert_order_id_here}
 
 Response:
